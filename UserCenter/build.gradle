@@ -4,7 +4,12 @@ if (isUserModule.toBoolean()) {
     apply plugin: 'com.android.application'
 
 }
+
 apply plugin: 'kotlin-android'
+
+//kotlin视图插件
+apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion 27
 
