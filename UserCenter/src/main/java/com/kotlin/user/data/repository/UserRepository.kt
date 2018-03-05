@@ -7,6 +7,7 @@ import com.kotlin.user.data.protocol.RegisterReq
 import rx.Observable
 
 /**
+ * 真正请求网络的地方
  * Created by TEDDY on 2018/3/5.
  */
 class UserRepository {
