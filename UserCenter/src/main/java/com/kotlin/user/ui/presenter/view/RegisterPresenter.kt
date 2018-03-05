@@ -1,6 +1,7 @@
 package com.kotlin.user.ui.presenter.view
 
 import com.kotlin.base.presenter.BasePresenter
+import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.user.service.impl.UserServiceImpl
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
@@ -18,13 +19,7 @@ class RegisterPresenter : BasePresenter<RegisterView>() {
         userService.register(mobile, verifyCode, pwd)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(object : Subscriber<Boolean>() {
-                    override fun onCompleted() {
-                    }
-
-                    override fun onError(e: Throwable?) {
-                    }
-
+                .subscribe(object : BaseSubscriber<Boolean>() {
                     override fun onNext(t: Boolean) {
                         mView.onRegisterResult(t)
                     }
