@@ -4,9 +4,12 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/APP/APP.iml" filepath="$PROJECT_DIR$/APP/APP.iml" />
       <module fileurl="file://$PROJECT_DIR$/BaseLibrary/BaseLibrary.iml" filepath="$PROJECT_DIR$/BaseLibrary/BaseLibrary.iml" />
+      <module fileurl="file://D:\AndroidStudioProjects\MyKotlinMall\BaseLibrary\BaseLibrary.iml" filepath="D:\AndroidStudioProjects\MyKotlinMall\BaseLibrary\BaseLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyKotlinMall.iml" filepath="$PROJECT_DIR$/MyKotlinMall.iml" />
       <module fileurl="file://$PROJECT_DIR$/Provider/Provider.iml" filepath="$PROJECT_DIR$/Provider/Provider.iml" />
+      <module fileurl="file://D:\AndroidStudioProjects\MyKotlinMall\Provider\Provider.iml" filepath="D:\AndroidStudioProjects\MyKotlinMall\Provider\Provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/UserCenter/UserCenter.iml" filepath="$PROJECT_DIR$/UserCenter/UserCenter.iml" />
+      <module fileurl="file://D:\AndroidStudioProjects\MyKotlinMall\UserCenter\UserCenter.iml" filepath="D:\AndroidStudioProjects\MyKotlinMall\UserCenter\UserCenter.iml" />
     </modules>
   </component>
 </project>
