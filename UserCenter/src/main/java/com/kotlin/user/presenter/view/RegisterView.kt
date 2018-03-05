@@ -1,4 +1,4 @@
-package com.kotlin.user.ui.presenter.view
+package com.kotlin.user.presenter.view
 
 import com.kotlin.base.presenter.view.BaseView
 

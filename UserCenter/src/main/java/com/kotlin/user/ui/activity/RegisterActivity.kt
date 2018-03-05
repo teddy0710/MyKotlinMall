@@ -3,12 +3,12 @@ package com.kotlin.user.ui.activity
 import android.os.Bundle
 import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.user.R
-import com.kotlin.user.ui.presenter.view.RegisterPresenter
-import com.kotlin.user.ui.presenter.view.RegisterView
+import com.kotlin.user.presenter.RegisterPresenter
+import com.kotlin.user.presenter.view.RegisterView
 import org.jetbrains.anko.toast
 import kotlinx.android.synthetic.main.activity_register.*
 
-class RegisterActivity : BaseMvpActivity<RegisterPresenter>(),RegisterView {
+class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
     override fun onRegisterResult(result: Boolean) {
         toast("注册成功")
     }
@@ -21,7 +21,7 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(),RegisterView {
         mPresenter.mView = this
 
         mRegisterBtn.setOnClickListener {
-            mPresenter.register("","","")
+            mPresenter.register(mMobileEt.text.toString(),mPwd.text.toString(),mVerifyCodeEt.text.toString())
         }
 
     }

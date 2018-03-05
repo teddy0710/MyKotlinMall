@@ -22,8 +22,21 @@ class RetrofitFactory private constructor() {
     }
 
     private var retrofit: Retrofit
+    private val interceptor: Interceptor
 
     init {
+        //通用拦截
+        interceptor = Interceptor { chain ->
+            val request = chain.request()
+                    .newBuilder()
+                    .addHeader("Content_Type", "application/json")
+                    .addHeader("charset", "UTF-8")
+//                .addHeader("token",AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN))
+                    .build()
+
+            chain.proceed(request)
+        }
+
         retrofit = Retrofit.Builder()
                 .baseUrl(Constant.SERVER_ADDRESS)//URL
                 .addConverterFactory(GsonConverterFactory.create())//数据转换工厂
@@ -34,6 +47,7 @@ class RetrofitFactory private constructor() {
 
     private fun initClient(): OkHttpClient? {
         return OkHttpClient.Builder()
+                .addInterceptor(interceptor)
                 .addInterceptor(initLogInterceptor())//日志拦截器
                 .connectTimeout(10, TimeUnit.SECONDS)//设置超时时间
                 .readTimeout(10, TimeUnit.SECONDS)
@@ -47,7 +61,7 @@ class RetrofitFactory private constructor() {
         return interceptor
     }
 
-    fun <T> create(service: Class<T>):T {
+    fun <T> create(service: Class<T>): T {
         return retrofit.create(service)
     }
 }
