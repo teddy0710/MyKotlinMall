@@ -10,9 +10,9 @@ import javax.inject.Inject
 /**
  * Created by ZFL on 2018/3/5
  */
-class RegisterPresenter @Inject constructor(): BasePresenter<RegisterView>() {
+class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
     @Inject
-    lateinit var userService : UserService
+    lateinit var userService: UserService
 
     fun register(mobile: String, pwd: String, verifyCode: String) {
         /*
@@ -21,8 +21,9 @@ class RegisterPresenter @Inject constructor(): BasePresenter<RegisterView>() {
         userService.register(mobile, pwd, verifyCode)
                 .execute(object : BaseSubscriber<Boolean>() {
                     override fun onNext(t: Boolean) {
-                        mView.onRegisterResult(t)
+                        if (t)
+                            mView.onRegisterResult("注册成功")
                     }
-                },lifecycleProvider)
+                }, lifecycleProvider)
     }
 }
