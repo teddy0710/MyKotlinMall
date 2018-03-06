@@ -11,8 +11,8 @@ import dagger.Provides
 @Module
 class UserModule {
     @Provides
-    fun providesUserService(serviceImpl: UserServiceImpl): UserService {
-        return serviceImpl
+    fun providesUserService(service: UserServiceImpl): UserService {
+        return service
     }
 
 }

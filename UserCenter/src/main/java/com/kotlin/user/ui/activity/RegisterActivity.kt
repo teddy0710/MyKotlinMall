@@ -19,17 +19,21 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-//        mPresenter = RegisterPresenter()
         initInjection()
 
         mRegisterBtn.setOnClickListener {
-            mPresenter.register(mMobileEt.text.toString(),mPwd.text.toString(),mVerifyCodeEt.text.toString())
+            mPresenter.register(mMobileEt.text.toString(), mPwd.text.toString(), mVerifyCodeEt.text.toString())
         }
 
     }
 
     private fun initInjection() {
-        DaggerUserComponent.builder().userModule(UserModule()).build().inject(this)
+        DaggerUserComponent.builder()
+                .activityComponent(activityComponent)
+                .userModule(UserModule())
+                .build()
+                .inject(this)
         mPresenter.mView = this
+
     }
 }

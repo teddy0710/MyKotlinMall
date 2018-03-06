@@ -5,7 +5,6 @@ import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.user.presenter.view.RegisterView
 import com.kotlin.user.service.UserService
-import com.kotlin.user.service.impl.UserServiceImpl
 import javax.inject.Inject
 
 /**
