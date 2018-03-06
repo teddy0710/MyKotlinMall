@@ -2,13 +2,11 @@ if (isUserModule.toBoolean()) {
     apply plugin: 'com.android.library'
 } else {
     apply plugin: 'com.android.application'
-
 }
-
 apply plugin: 'kotlin-android'
-
 //kotlin视图插件
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -54,6 +52,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile project(':Provider')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    //Dagger2
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
-
-apply plugin: 'kotlin-android-extensions'
