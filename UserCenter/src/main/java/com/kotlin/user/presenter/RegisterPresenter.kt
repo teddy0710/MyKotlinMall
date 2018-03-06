@@ -23,6 +23,6 @@ class RegisterPresenter @Inject constructor(): BasePresenter<RegisterView>() {
                     override fun onNext(t: Boolean) {
                         mView.onRegisterResult(t)
                     }
-                })
+                },lifecycleProvider)
     }
 }
