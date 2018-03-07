@@ -12,11 +12,11 @@ import org.jetbrains.anko.find
  * 加载框
  * Created by ZFL on 2018/3/7
  */
-class ProgressLoading(context: Context, theme: Int) : Dialog(context, theme) {
+class ProgressLoading private constructor(context: Context, theme: Int) : Dialog(context, theme) {
     companion object {
         private lateinit var mDialog: ProgressLoading
         private var animDrawable: AnimationDrawable? = null
-        fun create(context: Context) {
+        fun create(context: Context): ProgressLoading {
             mDialog = ProgressLoading(context, R.style.LightProgressDialog)
             mDialog.setContentView(R.layout.progress_dialog)
             mDialog.setCancelable(true)
@@ -31,6 +31,7 @@ class ProgressLoading(context: Context, theme: Int) : Dialog(context, theme) {
 
             val loadingView = mDialog.find<ImageView>(R.id.iv_loading)
             animDrawable = loadingView.background as AnimationDrawable
+            return mDialog
         }
     }
 

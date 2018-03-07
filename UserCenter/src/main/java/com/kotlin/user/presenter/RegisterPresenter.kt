@@ -13,7 +13,7 @@ import javax.inject.Named
  */
 class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
     @Inject
-    @field:[Named ("service")]
+    @field:[Named("service")]
     lateinit var userService: UserService
 
 
@@ -21,11 +21,14 @@ class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
         /*
             业务逻辑
          */
+
+        mView.showLoading()
         userService.register(mobile, pwd, verifyCode)
-                .execute(object : BaseSubscriber<Boolean>() {
+                .execute(object : BaseSubscriber<Boolean>(mView) {
                     override fun onNext(t: Boolean) {
                         if (t)
                             mView.onRegisterResult("注册成功")
+                        mView.hideLoading()
                     }
                 }, lifecycleProvider)
     }
