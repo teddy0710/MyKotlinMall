@@ -1,7 +1,6 @@
 package com.kotlin.user.ui.activity
 
 import android.os.Bundle
-import android.provider.Settings
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMvpActivity
