@@ -1,4 +1,4 @@
-package com.kotlin.base.ui.activity
+package com.kotlin.base.ui.fragment
 
 import android.os.Bundle
 import com.kotlin.base.common.BaseApplication
@@ -15,7 +15,7 @@ import javax.inject.Inject
  * 实现BaseView
  * Created by ZFL on 2018/3/5
  */
-abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView {
+abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView {
 
     /*
     使用 @Inject 标注的属性
@@ -36,8 +36,8 @@ abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView 
     private fun initActivityInjection() {
         activityComponent = DaggerActivityComponent
                 .builder()
-                .appComponent((application as BaseApplication).appComponent)
-                .activityModule(ActivityModule(this))
+                .appComponent((activity!!.application as BaseApplication).appComponent)
+                .activityModule(ActivityModule(activity!!))
                 .lifeCycleProviderModule(LifeCycleProviderModule(this))
                 .build()
 

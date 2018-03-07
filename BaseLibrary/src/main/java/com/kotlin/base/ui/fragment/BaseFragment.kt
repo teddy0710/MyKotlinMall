@@ -1,6 +1,6 @@
-package com.kotlin.base.ui.activity
+package com.kotlin.base.ui.fragment
 
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
+import com.trello.rxlifecycle.components.support.RxFragment
 
 /**
  * 用RxLifeCycle 解决rx的内存泄漏问题
@@ -8,5 +8,5 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity
  * 为不需要mvp的activity提供的BaseActivity
  * Created by ZFL on 2018/3/5
  */
-open class BaseActivity : RxAppCompatActivity() {
+open class BaseFragment : RxFragment() {
 }
