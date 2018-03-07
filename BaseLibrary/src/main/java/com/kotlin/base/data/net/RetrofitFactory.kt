@@ -1,6 +1,6 @@
 package com.kotlin.base.data.net
 
-import com.kotlin.base.common.Constant
+import com.kotlin.base.common.BaseConstant
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -38,7 +38,7 @@ class RetrofitFactory private constructor() {
         }
 
         retrofit = Retrofit.Builder()
-                .baseUrl(Constant.SERVER_ADDRESS)//URL
+                .baseUrl(BaseConstant.SERVER_ADDRESS)//URL
                 .addConverterFactory(GsonConverterFactory.create())//数据转换工厂
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//与Rx结合的适配工厂
                 .client(initClient())
