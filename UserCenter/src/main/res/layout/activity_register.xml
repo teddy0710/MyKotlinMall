@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:hint="请输入手机号码" />
 
-        <Button
+        <com.kotlin.base.widgets.VerifyButton
             android:id="@+id/mVerifyCodeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

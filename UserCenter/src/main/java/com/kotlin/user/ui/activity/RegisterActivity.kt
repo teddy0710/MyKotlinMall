@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMvpActivity
+import com.kotlin.base.widgets.VerifyButton
 import com.kotlin.user.R
 import com.kotlin.user.injection.component.DaggerUserComponent
 import com.kotlin.user.injection.module.UserModule
@@ -15,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_register.*
 class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
 
     private var pressTime: Long = 0
-
     override fun injectComponent() {
         DaggerUserComponent.builder()
                 .activityComponent(activityComponent)
@@ -45,6 +45,10 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
 
         mRegisterBtn.onClick {
             mPresenter.register(mMobileEt.text.toString(), mPwd.text.toString(), mVerifyCodeEt.text.toString())
+        }
+
+        mVerifyCodeBtn.onClick {
+            mVerifyCodeBtn.requestSendVerifyNumber()
         }
     }
 
