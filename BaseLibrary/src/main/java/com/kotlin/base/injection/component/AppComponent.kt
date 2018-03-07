@@ -9,7 +9,7 @@ import javax.inject.Singleton
  * Created by ZFL on 2018/3/6
  */
 @Singleton
-@Component(modules = arrayOf(AppModule::class))
+@Component(modules = [(AppModule::class)])
 interface AppComponent {
-    fun context():Context
+    fun context(): Context
 }
