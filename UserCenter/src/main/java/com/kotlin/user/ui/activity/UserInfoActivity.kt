@@ -10,16 +10,21 @@ import com.jph.takephoto.app.TakePhoto
 import com.jph.takephoto.app.TakePhotoImpl
 import com.jph.takephoto.compress.CompressConfig
 import com.jph.takephoto.model.TResult
+import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.base.utils.DateUtils
+import com.kotlin.base.utils.GlideUtils
 import com.kotlin.user.R
 import com.kotlin.user.injection.component.DaggerUserComponent
 import com.kotlin.user.injection.module.UserModule
 import com.kotlin.user.presenter.UserInfoPresenter
 import com.kotlin.user.presenter.view.UserInfoView
+import com.qiniu.android.http.ResponseInfo
+import com.qiniu.android.storage.UpCompletionHandler
+import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_user_info.*
-import org.jetbrains.anko.toast
+import org.json.JSONObject
 import java.io.File
 
 /*
@@ -28,8 +33,12 @@ import java.io.File
 class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
         UserInfoView, TakePhoto.TakeResultListener {
 
+
     private lateinit var mTakePhoto: TakePhoto
     private lateinit var mTempFile: File
+    private val mUploadManager: UploadManager by lazy { UploadManager() }
+    private var mLocalFile: String? = null
+    private var mRemoteFile: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,11 +85,12 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
 
 
     override fun takeSuccess(result: TResult?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mLocalFile = result?.image?.compressPath
+        mPresenter.getUploadToken()
+
     }
 
     override fun takeCancel() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun takeFail(result: TResult?, msg: String?) {
@@ -99,5 +109,18 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
             return
         }
         this.mTempFile = File(filesDir, tempFileName)
+    }
+
+    /*
+    获取7牛Token
+     */
+    override fun onGetUploadTokenResult(result: String) {
+        mUploadManager.put(mLocalFile, null, result
+                , object : UpCompletionHandler {
+            override fun complete(key: String?, info: ResponseInfo?, response: JSONObject?) {
+                mRemoteFile = BaseConstant.IMAGE_SERVER_ADDRESS + response?.get("hash")
+                GlideUtils.loadUrlImage(this@UserInfoActivity, mRemoteFile!!, mUserIconIv)
+            }
+        }, null)
     }
 }
