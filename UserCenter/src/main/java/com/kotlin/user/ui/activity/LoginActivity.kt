@@ -34,6 +34,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
         mLoginBtn.enable(mPwdEt, { isBtnEnable() })
         mLoginBtn.onClick(this)
         mHeaderBar.getRightView().onClick(this)
+        mForgetPwdTv.onClick(this)
     }
 
     override fun onClick(v: View) {
@@ -43,6 +44,9 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
             }
             R.id.mRightTv -> {
                 startActivity<RegisterActivity>()
+            }
+            R.id.mForgetPwdTv -> {
+                startActivity<ForgetPwdActivity>()
             }
 
         }
