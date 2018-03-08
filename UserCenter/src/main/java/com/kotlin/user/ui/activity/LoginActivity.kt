@@ -19,15 +19,6 @@ import org.jetbrains.anko.toast
  * 登录界面
  */
 class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickListener {
-    override fun onLoginResult(result: UserInfo) {
-        toast("登录成功")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        initView()
-    }
 
     private fun initView() {
         mLoginBtn.enable(mMobileEt, { isBtnEnable() })
@@ -64,6 +55,17 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
     private fun isBtnEnable(): Boolean {
         return mMobileEt.text.isNullOrEmpty().not() and
                 mPwdEt.text.isNullOrEmpty().not()
+    }
+
+    override fun onLoginResult(result: UserInfo) {
+        toast("登录成功")
+        startActivity<UserInfoActivity>()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+        initView()
     }
 
 }
