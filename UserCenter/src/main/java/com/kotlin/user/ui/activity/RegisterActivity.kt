@@ -3,6 +3,7 @@ package com.kotlin.user.ui.activity
 import android.os.Bundle
 import android.view.View
 import com.kotlin.base.common.AppManager
+import com.kotlin.base.ext.enable
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.base.widgets.VerifyButton
@@ -45,6 +46,10 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, Vie
     }
 
     private fun initView() {
+        mRegisterBtn.enable(mMobileEt, { isBtnEnable() })
+        mRegisterBtn.enable(mPwdEt, { isBtnEnable() })
+        mRegisterBtn.enable(mPwdConfirmEt, { isBtnEnable() })
+        mRegisterBtn.enable(mVerifyCodeEt, { isBtnEnable() })
         mRegisterBtn.setOnClickListener(this)
         mVerifyCodeBtn.setOnClickListener(this)
     }
@@ -66,5 +71,12 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, Vie
                 .build()
                 .inject(this)
         mPresenter.mView = this
+    }
+
+    fun isBtnEnable(): Boolean {
+        return mMobileEt.text.isNullOrEmpty().not() and
+                mPwdEt.text.isNullOrEmpty().not() and
+                mPwdConfirmEt.text.isNullOrEmpty().not() and
+                mVerifyCodeEt.text.isNullOrEmpty().not()
     }
 }
