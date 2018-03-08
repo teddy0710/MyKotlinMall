@@ -30,8 +30,6 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, Vie
         }
     }
 
-    private var pressTime: Long = 0
-
 
     override fun onRegisterResult(result: String) {
         toast(result)
@@ -52,16 +50,6 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, Vie
         mRegisterBtn.enable(mVerifyCodeEt, { isBtnEnable() })
         mRegisterBtn.setOnClickListener(this)
         mVerifyCodeBtn.setOnClickListener(this)
-    }
-
-    override fun onBackPressed() {
-        val time: Long = System.currentTimeMillis()
-        if (time - pressTime > 2000) {
-            toast("再按一次退出程序")
-            pressTime = time
-        } else {
-            AppManager.instance.exitApp(this)
-        }
     }
 
     override fun injectComponent() {
