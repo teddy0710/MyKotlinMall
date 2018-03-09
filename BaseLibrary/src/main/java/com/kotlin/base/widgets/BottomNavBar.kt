@@ -1,9 +1,13 @@
 package com.kotlin.base.widgets
 
 import android.content.Context
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.Shape
 import android.util.AttributeSet
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
+import com.ashokvarma.bottomnavigation.ShapeBadgeItem
+import com.ashokvarma.bottomnavigation.TextBadgeItem
 import com.kotlin.base.R
 
 /**
@@ -12,6 +16,10 @@ import com.kotlin.base.R
 class BottomNavBar @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : BottomNavigationBar(context, attrs, defStyleAttr) {
+
+    private val mCartBadge: TextBadgeItem
+    private val mMsgBadge: ShapeBadgeItem
+
     init {
         //首页
         val homeItem = BottomNavigationItem(R.drawable.btn_nav_home_press, resources.getString(R.string.nav_bar_home))
@@ -31,12 +39,18 @@ class BottomNavBar @JvmOverloads constructor(
                 .setActiveColorResource(R.color.common_blue)
                 .setInActiveColorResource(R.color.text_normal)
 
+        mCartBadge = TextBadgeItem()
+        cartItem.setBadgeItem(mCartBadge)
 
         //消息
         val msgItem = BottomNavigationItem(R.drawable.btn_nav_msg_press, resources.getString(R.string.nav_bar_msg))
                 .setInactiveIconResource(R.drawable.btn_nav_msg_normal)
                 .setActiveColorResource(R.color.common_blue)
                 .setInActiveColorResource(R.color.text_normal)
+
+        mMsgBadge = ShapeBadgeItem()
+        mMsgBadge.setShape(ShapeBadgeItem.SHAPE_OVAL)
+        msgItem.setBadgeItem(mMsgBadge)
 
         //我的
         val userItem = BottomNavigationItem(R.drawable.btn_nav_user_press, resources.getString(R.string.nav_bar_user))
@@ -50,5 +64,23 @@ class BottomNavBar @JvmOverloads constructor(
 
         addItem(homeItem).addItem(categoryItem).addItem(cartItem).addItem(msgItem).addItem(userItem)
                 .setFirstSelectedPosition(0).initialise()
+    }
+
+
+    fun checkCartBadge(count: Int) {
+        if (count == 0) {
+            mCartBadge.hide()
+        } else {
+            mCartBadge.show()
+            mCartBadge.setText("$count")
+        }
+    }
+
+    fun checkMsgBadge(isVisiable: Boolean) {
+        if (isVisiable) {
+            mMsgBadge.show()
+        } else {
+            mMsgBadge.hide()
+        }
     }
 }
