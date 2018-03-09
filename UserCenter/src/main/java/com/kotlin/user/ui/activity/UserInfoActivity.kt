@@ -18,14 +18,17 @@ import com.kotlin.base.utils.DateUtils
 import com.kotlin.base.utils.GlideUtils
 import com.kotlin.provider.common.ProviderConstant
 import com.kotlin.user.R
+import com.kotlin.user.data.protocol.UserInfo
 import com.kotlin.user.injection.component.DaggerUserComponent
 import com.kotlin.user.injection.module.UserModule
 import com.kotlin.user.presenter.UserInfoPresenter
 import com.kotlin.user.presenter.view.UserInfoView
+import com.kotlin.user.utils.UserPrefsUtils
 import com.qiniu.android.http.ResponseInfo
 import com.qiniu.android.storage.UpCompletionHandler
 import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_user_info.*
+import org.jetbrains.anko.toast
 import org.json.JSONObject
 import java.io.File
 
@@ -39,8 +42,8 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
     private lateinit var mTakePhoto: TakePhoto
     private lateinit var mTempFile: File
     private val mUploadManager: UploadManager by lazy { UploadManager() }
-    private var mLocalFile: String? = null
-    private var mRemoteFile: String? = null
+    private var mLocalFileUrl: String? = null
+    private var mRemoteFileUrl: String? = null
 
 
     private var mUserIcon: String? = null
@@ -68,6 +71,7 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
         mUserGender = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_GENDER)
         mUserSign = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_SIGN)
 
+        mRemoteFileUrl = mUserIcon
         if (mUserIcon != "") {
             GlideUtils.loadUrlImage(this, mUserIcon!!, mUserIconIv)
         }
@@ -81,6 +85,15 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
     private fun initView() {
         mUserIconView.onClick {
             showAlertView()
+        }
+
+        mHeaderBar.getRightView().onClick {
+            mPresenter.editUser(
+                    mRemoteFileUrl!!,
+                    mUserNameEt.text?.toString() ?: "",
+                    if (mGenderFemaleRb.isChecked) "0" else "1",
+                    mUserSignEt.text?.toString() ?: ""
+            )
         }
     }
 
@@ -113,7 +126,7 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
 
 
     override fun takeSuccess(result: TResult?) {
-        mLocalFile = result?.image?.compressPath
+        mLocalFileUrl = result?.image?.compressPath
         mPresenter.getUploadToken()
 
     }
@@ -143,12 +156,17 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
     获取7牛Token
      */
     override fun onGetUploadTokenResult(result: String) {
-        mUploadManager.put(mLocalFile, null, result
+        mUploadManager.put(mLocalFileUrl, null, result
                 , object : UpCompletionHandler {
             override fun complete(key: String?, info: ResponseInfo?, response: JSONObject?) {
-                mRemoteFile = BaseConstant.IMAGE_SERVER_ADDRESS + response?.get("hash")
-                GlideUtils.loadUrlImage(this@UserInfoActivity, mRemoteFile!!, mUserIconIv)
+                mRemoteFileUrl = BaseConstant.IMAGE_SERVER_ADDRESS + response?.get("hash")
+                GlideUtils.loadUrlImage(this@UserInfoActivity, mRemoteFileUrl!!, mUserIconIv)
             }
         }, null)
+    }
+
+    override fun onGetEditUserResult(result: UserInfo) {
+        toast("修改成功")
+        UserPrefsUtils.putUserInfo(result)
     }
 }
