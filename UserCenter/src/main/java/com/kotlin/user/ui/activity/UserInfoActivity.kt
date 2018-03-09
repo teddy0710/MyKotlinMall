@@ -13,8 +13,10 @@ import com.jph.takephoto.model.TResult
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMvpActivity
+import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.base.utils.DateUtils
 import com.kotlin.base.utils.GlideUtils
+import com.kotlin.provider.common.ProviderConstant
 import com.kotlin.user.R
 import com.kotlin.user.injection.component.DaggerUserComponent
 import com.kotlin.user.injection.module.UserModule
@@ -40,14 +42,40 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(),
     private var mLocalFile: String? = null
     private var mRemoteFile: String? = null
 
+
+    private var mUserIcon: String? = null
+    private var mUserName: String? = null
+    private var mUserMobile: String? = null
+    private var mUserGender: String? = null
+    private var mUserSign: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_info)
 
         mTakePhoto = TakePhotoImpl(this, this)
+        mTakePhoto.onCreate(savedInstanceState)
         initView()
 
-        mTakePhoto.onCreate(savedInstanceState)
+        initData()
+
+    }
+
+    private fun initData() {
+        mUserIcon = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
+        mUserName = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_NAME)
+        mUserMobile = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_MOBILE)
+        mUserGender = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_GENDER)
+        mUserSign = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_SIGN)
+
+        if (mUserIcon != "") {
+            GlideUtils.loadUrlImage(this, mUserIcon!!, mUserIconIv)
+        }
+        mUserNameEt.setText(mUserName)
+        mUserMobileTv.text = mUserMobile
+        if (mUserGender == "0") mGenderMaleRb.isChecked = true
+        else mGenderFemaleRb.isChecked = true
+        mUserSignEt.setText(mUserSign)
     }
 
     private fun initView() {
