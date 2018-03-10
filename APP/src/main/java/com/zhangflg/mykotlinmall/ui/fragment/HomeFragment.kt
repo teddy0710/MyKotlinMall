@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.base.widgets.BannerImageLoader
 import com.kotlin.mall.common.*
+import com.kotlin.mall.ui.adapter.TopicAdapter
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import com.zhangflg.mykotlinmall.R
 import com.zhangflg.mykotlinmall.ui.adapter.HomeDisCountAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import me.crosswall.lib.coverflow.CoverFlow
 
 /**
  * Created by ZFL on 2018/3/10
@@ -28,6 +30,7 @@ class HomeFragment : BaseFragment() {
         initBanner()
         initNews()
         initDiscount()
+        initTopic()
     }
 
 
@@ -65,5 +68,23 @@ class HomeFragment : BaseFragment() {
                 HOME_DISCOUNT_FOUR,
                 HOME_DISCOUNT_FIVE
         ))
+    }
+
+
+    private fun initTopic() {
+        mTopicPager.adapter = context?.let {
+            TopicAdapter(it,
+                    listOf(HOME_TOPIC_ONE,
+                            HOME_TOPIC_TWO,
+                            HOME_TOPIC_THREE,
+                            HOME_TOPIC_FOUR,
+                            HOME_TOPIC_FIVE))
+        }
+        mTopicPager.currentItem = 1
+        mTopicPager.offscreenPageLimit = 5
+
+        CoverFlow.Builder().with(mTopicPager).scale(0.3f)
+                .pagerMargin(-30.0f).spaceSize(0.0f).build()
+
     }
 }
