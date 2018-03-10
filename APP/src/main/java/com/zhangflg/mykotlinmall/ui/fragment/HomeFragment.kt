@@ -10,25 +10,26 @@ import com.kotlin.mall.common.HOME_BANNER_FOUR
 import com.kotlin.mall.common.HOME_BANNER_ONE
 import com.kotlin.mall.common.HOME_BANNER_THREE
 import com.kotlin.mall.common.HOME_BANNER_TWO
-import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import com.zhangflg.mykotlinmall.R
+import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  * Created by ZFL on 2018/3/10
  */
 class HomeFragment : BaseFragment() {
-    private lateinit var mHomeBanner: Banner
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val rootView = inflater.inflate(R.layout.fragment_home, null)
-        initBanner(rootView)
-        return rootView
+        return inflater.inflate(R.layout.fragment_home, null)
     }
 
-    private fun initBanner(rootView: View) {
-        mHomeBanner = rootView.findViewById(R.id.mHomeBanner)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initBanner()
+    }
+
+    private fun initBanner() {
         mHomeBanner.setImageLoader(BannerImageLoader())
         mHomeBanner.setImages(listOf(HOME_BANNER_ONE, HOME_BANNER_TWO, HOME_BANNER_THREE, HOME_BANNER_FOUR))
         mHomeBanner.setBannerAnimation(Transformer.Accordion)
