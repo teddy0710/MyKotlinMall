@@ -72,5 +72,7 @@ dependencies {
     //底部导航
     compile 'com.ashokvarma.android:bottom-navigation-bar:2.0.4'
     //Banner
-    compile 'com.youth.banner:banner:1.4.10'  //最新版本
+    compile 'com.youth.banner:banner:1.4.10'
+    //标签
+    compile 'com.github.shts:TriangleLabelView:1.1.2'
 }
