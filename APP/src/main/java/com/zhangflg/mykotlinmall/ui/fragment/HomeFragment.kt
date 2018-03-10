@@ -27,7 +27,9 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBanner()
+        initNews()
     }
+
 
     private fun initBanner() {
         mHomeBanner.setImageLoader(BannerImageLoader())
@@ -36,5 +38,12 @@ class HomeFragment : BaseFragment() {
         mHomeBanner.setDelayTime(2000)
         mHomeBanner.setIndicatorGravity(BannerConfig.RIGHT)
         mHomeBanner.start()
+    }
+
+    private fun initNews() {
+        mNewsFlipperView.setData(arrayOf("第一波福利还有30秒到场",
+                "全场低至一折起",
+                "今晚八点准时红包雨",
+                "新用户领取1000元红包"))
     }
 }
