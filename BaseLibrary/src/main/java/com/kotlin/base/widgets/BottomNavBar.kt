@@ -1,8 +1,6 @@
 package com.kotlin.base.widgets
 
 import android.content.Context
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.Shape
 import android.util.AttributeSet
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
@@ -76,8 +74,8 @@ class BottomNavBar @JvmOverloads constructor(
         }
     }
 
-    fun checkMsgBadge(isVisiable: Boolean) {
-        if (isVisiable) {
+    fun checkMsgBadge(isVisible: Boolean) {
+        if (isVisible) {
             mMsgBadge.show()
         } else {
             mMsgBadge.hide()

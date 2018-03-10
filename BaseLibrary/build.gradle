@@ -71,4 +71,6 @@ dependencies {
     compile 'com.qiniu:qiniu-android-sdk:7.3.10'
     //底部导航
     compile 'com.ashokvarma.android:bottom-navigation-bar:2.0.4'
+    //Banner
+    compile 'com.youth.banner:banner:1.4.10'  //最新版本
 }
