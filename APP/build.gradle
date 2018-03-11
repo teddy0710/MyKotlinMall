@@ -31,6 +31,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':Provider')
     implementation project(':MessageCenter')
+    implementation project(':GoodsCenter')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     if (isUserModule.toBoolean()) {
         implementation project(':UserCenter')

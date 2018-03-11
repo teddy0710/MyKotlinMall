@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.kotlin.base.ui.fragment.BaseFragment
+import com.kotlin.goods.ui.fragment.CategoryFragment
 import com.zhangflg.mykotlinmall.R
 import com.zhangflg.mykotlinmall.ui.fragment.HomeFragment
 import com.zhangflg.mykotlinmall.ui.fragment.MineFragment
@@ -17,7 +18,7 @@ import java.util.concurrent.TimeUnit
 class MainActivity : AppCompatActivity() {
     private val mStack = Stack<BaseFragment>()
     private val mHomeFragment: HomeFragment by lazy { HomeFragment() }
-    private val mCategoryFragmentFragment: HomeFragment by lazy { HomeFragment() }
+    private val mCategoryFragmentFragment: CategoryFragment by lazy { CategoryFragment() }
     private val mCartFragment: HomeFragment by lazy { HomeFragment() }
     private val mMsgFragment: HomeFragment by lazy { HomeFragment() }
     private val mMineFragment: MineFragment by lazy { MineFragment() }
