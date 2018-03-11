@@ -37,10 +37,15 @@ class MineFragment : BaseFragment() {
 
     private fun loadData() {
         if (AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN).isNotBlank()) {
+            mUserIconIv.setImageResource(R.drawable.icon_default_user)
+            mUserNameTv.text = getString(R.string.un_login_text)
+        } else {
             val iconUrl = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
             if (iconUrl.isNotBlank()) {
                 mUserIconIv.loadUrl(iconUrl)
             }
+            mUserNameTv.text = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_NAME)
+
         }
 
     }
