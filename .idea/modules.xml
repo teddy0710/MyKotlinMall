@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/APP/APP.iml" filepath="$PROJECT_DIR$/APP/APP.iml" />
       <module fileurl="file://$PROJECT_DIR$/BaseLibrary/BaseLibrary.iml" filepath="$PROJECT_DIR$/BaseLibrary/BaseLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GoodsCenter/GoodsCenter.iml" filepath="$PROJECT_DIR$/GoodsCenter/GoodsCenter.iml" />
       <module fileurl="file://$PROJECT_DIR$/MessageCenter/MessageCenter.iml" filepath="$PROJECT_DIR$/MessageCenter/MessageCenter.iml" />
       <module fileurl="file://G:\ASProjects\MyKotlinMall\MessageCenter\MessageCenter.iml" filepath="G:\ASProjects\MyKotlinMall\MessageCenter\MessageCenter.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyKotlinMall.iml" filepath="$PROJECT_DIR$/MyKotlinMall.iml" />
