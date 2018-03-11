@@ -2,6 +2,7 @@ package com.kotlin.user.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import com.kotlin.base.common.AppManager
 import com.kotlin.base.ext.enable
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMvpActivity
@@ -61,7 +62,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
     override fun onLoginResult(result: UserInfo) {
         toast("登录成功")
         UserPrefsUtils.putUserInfo(result)
-        startActivity<UserInfoActivity>()
+        AppManager.instance.finishActivity(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.loadUrl
+import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.base.utils.GlideUtils
@@ -14,20 +15,38 @@ import com.kotlin.base.widgets.BannerImageLoader
 import com.kotlin.mall.common.*
 import com.kotlin.mall.ui.adapter.TopicAdapter
 import com.kotlin.provider.common.ProviderConstant
+import com.kotlin.provider.common.isLogined
+import com.kotlin.user.ui.activity.LoginActivity
+import com.kotlin.user.ui.activity.UserInfoActivity
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import com.zhangflg.mykotlinmall.R
+import com.zhangflg.mykotlinmall.ui.activity.SettingActivity
 import com.zhangflg.mykotlinmall.ui.adapter.HomeDisCountAdapter
 import kotlinx.android.synthetic.main.fragment_mine.*
 import me.crosswall.lib.coverflow.CoverFlow
+import org.jetbrains.anko.support.v4.startActivity
 
 /**
  * Created by ZFL on 2018/3/10
  */
-class MineFragment : BaseFragment() {
+class MineFragment : BaseFragment(), View.OnClickListener {
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.fragment_mine, null)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+
+    private fun initView() {
+        mUserIconIv.onClick(this)
+        mUserNameTv.onClick(this)
+        mSettingTv.onClick(this)
     }
 
     override fun onStart() {
@@ -36,7 +55,7 @@ class MineFragment : BaseFragment() {
     }
 
     private fun loadData() {
-        if (AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN).isNotBlank()) {
+        if (!isLogined()) {
             mUserIconIv.setImageResource(R.drawable.icon_default_user)
             mUserNameTv.text = getString(R.string.un_login_text)
         } else {
@@ -45,8 +64,22 @@ class MineFragment : BaseFragment() {
                 mUserIconIv.loadUrl(iconUrl)
             }
             mUserNameTv.text = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_NAME)
-
         }
 
+    }
+
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.mUserIconIv, R.id.mUserNameTv -> {
+                if (isLogined()) {
+                    startActivity<UserInfoActivity>()
+                } else {
+                    startActivity<LoginActivity>()
+                }
+            }
+            R.id.mSettingTv -> {
+                startActivity<SettingActivity>()
+            }
+        }
     }
 }
