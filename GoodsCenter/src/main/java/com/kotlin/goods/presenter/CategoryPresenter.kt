@@ -20,7 +20,6 @@ class CategoryPresenter @Inject constructor() : BasePresenter<CategoryView>() {
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         categoryService.getCategory(parentId)
                 .execute(object : BaseSubscriber<MutableList<Category>?>(mView) {
                     override fun onNext(t: MutableList<Category>?) {

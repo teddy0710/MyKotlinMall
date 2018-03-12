@@ -23,12 +23,10 @@ class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         userService.login(mobile, pwd, pushId)
                 .execute(object : BaseSubscriber<UserInfo>(mView) {
                     override fun onNext(t: UserInfo) {
                         mView.onLoginResult(t)
-                        mView.hideLoading()
                     }
                 }, lifecycleProvider)
     }

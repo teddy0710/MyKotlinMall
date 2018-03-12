@@ -23,11 +23,9 @@ class UserInfoPresenter @Inject constructor() : BasePresenter<UserInfoView>() {
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         uploadService.getUploadToken().execute(object : BaseSubscriber<String>(mView) {
             override fun onNext(t: String) {
                 mView.onGetUploadTokenResult(t)
-                mView.hideLoading()
             }
         }, lifecycleProvider)
     }
@@ -37,12 +35,10 @@ class UserInfoPresenter @Inject constructor() : BasePresenter<UserInfoView>() {
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         userService.editUser(userIcon, userName, userGender, userSign)
                 .execute(object : BaseSubscriber<UserInfo>(mView) {
                     override fun onNext(t: UserInfo) {
                         mView.onGetEditUserResult(t)
-                        mView.hideLoading()
                     }
                 }, lifecycleProvider)
     }

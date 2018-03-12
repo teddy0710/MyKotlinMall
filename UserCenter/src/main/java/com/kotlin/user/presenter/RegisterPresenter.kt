@@ -22,13 +22,11 @@ class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         userService.register(mobile, pwd, verifyCode)
                 .execute(object : BaseSubscriber<Boolean>(mView) {
                     override fun onNext(t: Boolean) {
                         if (t)
                             mView.onRegisterResult("用户验证成功")
-                        mView.hideLoading()
                     }
                 }, lifecycleProvider)
     }

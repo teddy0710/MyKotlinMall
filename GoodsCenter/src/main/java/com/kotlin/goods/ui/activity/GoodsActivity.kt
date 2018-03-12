@@ -8,7 +8,7 @@ import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.goods.R
-import com.kotlin.goods.common.GoodsConstant.Companion.KEY_CATEGORY_ID
+import com.kotlin.goods.common.GoodsConstant
 import com.kotlin.goods.data.protocol.Goods
 import com.kotlin.goods.injection.component.DaggerGoodsComponent
 import com.kotlin.goods.injection.module.GoodsModule
@@ -25,7 +25,6 @@ class GoodsActivity : BaseMvpActivity<GoodsListPresenter>(), GoodsListView,
     private var mCurrentPage: Int = 1
     private var mMaxPage: Int = 1
     private lateinit var mGoodsAdapter: GoodsAdapter
-    private var mData: MutableList<Goods>? = null
     override fun injectComponent() {
         DaggerGoodsComponent.builder()
                 .activityComponent(activityComponent)
@@ -66,8 +65,13 @@ class GoodsActivity : BaseMvpActivity<GoodsListPresenter>(), GoodsListView,
         加载数据
      */
     private fun loadData() {
-        mMultiStateView.startLoading()
-        mPresenter.getGoodsList(intent.getIntExtra(KEY_CATEGORY_ID, 1), mCurrentPage)
+        if (intent.getIntExtra(GoodsConstant.KEY_SEARCH_GOODS_TYPE, 0) != 0) {
+            mMultiStateView.startLoading()
+            mPresenter.getGoodsListByKeyword(intent.getStringExtra(GoodsConstant.KEY_GOODS_KEYWORD), mCurrentPage)
+        } else {
+            mMultiStateView.startLoading()
+            mPresenter.getGoodsList(intent.getIntExtra(GoodsConstant.KEY_CATEGORY_ID, 1), mCurrentPage)
+        }
     }
 
 
