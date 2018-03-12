@@ -12,6 +12,7 @@ import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.goods.R
+import com.kotlin.goods.common.GoodsConstant.Companion.KEY_CATEGORY_ID
 import com.kotlin.goods.data.protocol.Category
 import com.kotlin.goods.injection.component.DaggerCategoryComponent
 import com.kotlin.goods.injection.module.CategoryModule
@@ -76,7 +77,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), CategoryView {
 
         secondCategoryAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<Category> {
             override fun onItemClick(item: Category, position: Int) {
-                startActivity<GoodsActivity>("categoryId" to item.id)
+                startActivity<GoodsActivity>(KEY_CATEGORY_ID to item.id)
             }
 
         })
