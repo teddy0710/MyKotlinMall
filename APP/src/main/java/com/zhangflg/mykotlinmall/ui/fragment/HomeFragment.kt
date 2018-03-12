@@ -5,8 +5,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.base.widgets.BannerImageLoader
+import com.kotlin.goods.ui.activity.SearchGoodsActivity
 import com.kotlin.mall.common.*
 import com.kotlin.mall.ui.adapter.TopicAdapter
 import com.youth.banner.BannerConfig
@@ -15,6 +17,8 @@ import com.zhangflg.mykotlinmall.R
 import com.zhangflg.mykotlinmall.ui.adapter.HomeDisCountAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import me.crosswall.lib.coverflow.CoverFlow
+import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 /**
  * Created by ZFL on 2018/3/10
@@ -27,12 +31,25 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         initBanner()
         initNews()
         initDiscount()
         initTopic()
     }
 
+    /*
+        初始化视图
+     */
+    private fun initView() {
+        mSearchEt.onClick {
+            startActivity<SearchGoodsActivity>()
+        }
+
+        mScanIv.onClick {
+            toast(R.string.coming_soon_tip)
+        }
+    }
 
     private fun initBanner() {
         mHomeBanner.setImageLoader(BannerImageLoader())
