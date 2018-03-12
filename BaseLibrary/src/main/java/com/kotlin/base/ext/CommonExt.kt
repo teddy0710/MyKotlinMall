@@ -68,7 +68,7 @@ fun ImageView.loadUrl(url: String) {
 /*
 多状态视图，加载页面封装
  */
-fun MultiStateView.showLoading() {
+fun MultiStateView.startLoading() {
     viewState = MultiStateView.VIEW_STATE_LOADING
     //从多状态视图中获取LoadingView
     val loadingView = getView(MultiStateView.VIEW_STATE_LOADING)

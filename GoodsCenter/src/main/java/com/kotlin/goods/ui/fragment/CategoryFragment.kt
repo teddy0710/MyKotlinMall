@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.setVisible
-import com.kotlin.base.ext.showLoading
+import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.goods.R
@@ -17,10 +17,11 @@ import com.kotlin.goods.injection.component.DaggerCategoryComponent
 import com.kotlin.goods.injection.module.CategoryModule
 import com.kotlin.goods.presenter.CategoryPresenter
 import com.kotlin.goods.presenter.view.CategoryView
+import com.kotlin.goods.ui.activity.GoodsActivity
 import com.kotlin.goods.ui.adapter.SecondCategoryAdapter
 import com.kotlin.goods.ui.adapter.TopCategoryAdapter
 import kotlinx.android.synthetic.main.fragment_category.*
-import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.support.v4.startActivity
 
 /**
  * 商品分类界面
@@ -75,7 +76,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), CategoryView {
 
         secondCategoryAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<Category> {
             override fun onItemClick(item: Category, position: Int) {
-                toast("click")
+                startActivity<GoodsActivity>("categoryId" to item.id)
             }
 
         })
@@ -85,7 +86,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), CategoryView {
         mPresenter.getCategory(parentId)
 
         if (parentId != 0) {
-            mMultiStateView.showLoading()
+            mMultiStateView.startLoading()
         }
     }
 

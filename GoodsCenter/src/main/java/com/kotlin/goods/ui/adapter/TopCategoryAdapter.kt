@@ -27,7 +27,5 @@ class TopCategoryAdapter(context: Context) : BaseRecyclerViewAdapter<Category, T
         holder.itemView.mTopCategoryNameTv.isSelected = modle.isSelected
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-    }
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
