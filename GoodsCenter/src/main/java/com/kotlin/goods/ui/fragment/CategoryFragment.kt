@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kennyc.view.MultiStateView
+import com.kotlin.base.ext.setVisible
+import com.kotlin.base.ext.showLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.goods.R
@@ -81,18 +83,29 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), CategoryView {
 
     private fun loadData(parentId: Int = 0) {
         mPresenter.getCategory(parentId)
+
+        if (parentId != 0) {
+            mMultiStateView.showLoading()
+        }
     }
 
     override fun onGetCategoryResult(result: MutableList<Category>?) {
-        result?.let {
+        if (result != null && result.size > 0) {//有商品数据
             if (result[0].parentId == 0) {
                 result[0].isSelected = true
                 topCategoryAdapter.setData(result)
                 mPresenter.getCategory(result[0].id)
             } else {
+                mCategoryTitleTv.setVisible(true)
+                mTopCategoryIv.setVisible(true)
                 secondCategoryAdapter.setData(result)
                 mMultiStateView.viewState = MultiStateView.VIEW_STATE_CONTENT
             }
+        } else {//无数据
+            mMultiStateView.viewState = MultiStateView.VIEW_STATE_EMPTY
+            mCategoryTitleTv.setVisible(false)
+            mTopCategoryIv.setVisible(false)
         }
+
     }
 }

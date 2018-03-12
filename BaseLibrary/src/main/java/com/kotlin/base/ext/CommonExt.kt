@@ -1,9 +1,12 @@
 package com.kotlin.base.ext
 
+import android.graphics.drawable.AnimationDrawable
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import com.kennyc.view.MultiStateView
+import com.kotlin.base.R
 import com.kotlin.base.data.protocol.BaseResp
 import com.kotlin.base.rx.BaseFunc
 import com.kotlin.base.rx.BaseFuncBoolean
@@ -11,6 +14,7 @@ import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.base.utils.DefaultTextWacther
 import com.kotlin.base.utils.GlideUtils
 import com.trello.rxlifecycle.LifecycleProvider
+import org.jetbrains.anko.find
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -61,7 +65,23 @@ fun ImageView.loadUrl(url: String) {
     GlideUtils.loadUrlImage(context, url, this)
 }
 
+/*
+多状态视图，加载页面封装
+ */
+fun MultiStateView.showLoading() {
+    viewState = MultiStateView.VIEW_STATE_LOADING
+    //从多状态视图中获取LoadingView
+    val loadingView = getView(MultiStateView.VIEW_STATE_LOADING)
+    //获取动画
+    val animBackground = loadingView?.find<View>(R.id.loading_anim_view)?.background
+    //执行动画
+    (animBackground as AnimationDrawable).start()
+}
 
+
+fun View.setVisible(boolean: Boolean) {
+    visibility = if (boolean) View.VISIBLE else View.GONE
+}
 
 
 
