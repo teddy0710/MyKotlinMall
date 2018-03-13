@@ -18,8 +18,10 @@ import com.kotlin.base.widgets.BannerImageLoader
 import com.kotlin.goods.R
 import com.kotlin.goods.common.GoodsConstant
 import com.kotlin.goods.data.protocol.Goods
+import com.kotlin.goods.event.AddCartEvent
 import com.kotlin.goods.event.GoodsDetailImageEvent
 import com.kotlin.goods.event.SkuChangedEvent
+import com.kotlin.goods.event.UpdateCartSizeEvent
 import com.kotlin.goods.injection.component.DaggerGoodsComponent
 import com.kotlin.goods.injection.module.GoodsModule
 import com.kotlin.goods.presenter.GoodsDetailPresenter
@@ -29,6 +31,7 @@ import com.kotlin.goods.widget.GoodsSkuPopView
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_goods_detail_tab_one.*
+import org.jetbrains.anko.support.v4.toast
 
 /**
  * 商品详情Tab一
@@ -36,12 +39,15 @@ import kotlinx.android.synthetic.main.fragment_goods_detail_tab_one.*
  */
 class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), GoodsDetailView {
 
+
     private lateinit var mSukPop: GoodsSkuPopView
 
     //SKU弹层出场动画
     private lateinit var mAnimationStart: Animation
     //SKU弹层退场动画
     private lateinit var mAnimationEnd: Animation
+
+    private var mCurGoods: Goods? = null
 
     override fun injectComponent() {
         DaggerGoodsComponent.builder()
@@ -108,6 +114,7 @@ class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Good
     }
 
     override fun onGetGoodsDetailResult(result: Goods) {
+        mCurGoods = result
         mGoodsDetailBanner.setImages(result.goodsBanner.split(","))
         mGoodsDetailBanner.start()
 
@@ -135,11 +142,42 @@ class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Good
                     mSkuSelectedTv.text =
                             mSukPop.getSelectSku() + GoodsConstant.SKU_SEPARATOR + mSukPop.getSelectCount() + "件"
                 }.registerInBus(this)
+
+        Bus.observe<AddCartEvent>()
+                .subscribe {
+                    addCart()
+                }.registerInBus(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Bus.unregister(this)
     }
+
+
+    /*
+        加入购物车
+     */
+    private fun addCart() {
+        mCurGoods?.let {
+            mPresenter.addCart(it.id,
+                    it.goodsDesc,
+                    it.goodsDefaultIcon,
+                    it.goodsDefaultPrice,
+                    mSukPop.getSelectCount(),
+                    mSukPop.getSelectSku()
+            )
+        }
+
+    }
+
+    /*
+        加入购物车 回调
+     */
+    override fun onAddCartResult(result: Int) {
+        toast("Cart$result")
+        Bus.send(UpdateCartSizeEvent())
+    }
+
 
 }

@@ -8,4 +8,5 @@ import com.kotlin.goods.data.protocol.Goods
  */
 interface GoodsDetailView : BaseView {
     fun onGetGoodsDetailResult(result: Goods)
+    fun onAddCartResult(result: Int)
 }
