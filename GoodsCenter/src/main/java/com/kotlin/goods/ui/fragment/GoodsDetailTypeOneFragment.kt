@@ -1,11 +1,13 @@
 package com.kotlin.goods.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.YuanFenConverter
@@ -14,6 +16,7 @@ import com.kotlin.goods.R
 import com.kotlin.goods.common.GoodsConstant
 import com.kotlin.goods.data.protocol.Goods
 import com.kotlin.goods.event.GoodsDetailImageEvent
+import com.kotlin.goods.event.SkuChangedEvent
 import com.kotlin.goods.injection.component.DaggerGoodsComponent
 import com.kotlin.goods.injection.module.GoodsModule
 import com.kotlin.goods.presenter.GoodsDetailPresenter
@@ -49,6 +52,7 @@ class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Good
         initView()
         initSkuPop()
         loadData()
+        initObserve()
     }
 
 
@@ -95,5 +99,18 @@ class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Good
 
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun initObserve() {
+        Bus.observe<SkuChangedEvent>()
+                .subscribe {
+                    mSkuSelectedTv.text =
+                            mSukPop.getSelectSku() + GoodsConstant.SKU_SEPARATOR + mSukPop.getSelectCount() + "件"
+                }.registerInBus(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Bus.unregister(this)
+    }
 
 }
