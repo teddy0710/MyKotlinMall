@@ -216,7 +216,7 @@ object DateUtils {
     fun stringToDate(strTime: String, formatType: String): Date {
         val formatter = SimpleDateFormat(formatType)
         formatter.timeZone = defTimeZone
-        var date: Date? = null
+        val date: Date?
         date = formatter.parse(strTime)
         return date
     }

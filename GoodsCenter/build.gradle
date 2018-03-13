@@ -41,5 +41,5 @@ dependencies {
     //ARouter
 //    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 
-//    compile 'ren.qinc.numberbutton:numberbutton:0.0.1'
+    compile 'ren.qinc.numberbutton:numberbutton:0.0.1'
 }

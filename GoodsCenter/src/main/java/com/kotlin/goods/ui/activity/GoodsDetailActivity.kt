@@ -2,6 +2,7 @@ package com.kotlin.goods.ui.activity
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.view.View
 import com.kotlin.base.ui.activity.BaseActivity
 import com.kotlin.goods.R
 import com.kotlin.goods.ui.adapter.GoodsDetailVpAdapter
@@ -23,5 +24,9 @@ class GoodsDetailActivity : BaseActivity() {
         mGoodsDetailVp.adapter = GoodsDetailVpAdapter(supportFragmentManager, this)
 
         mGoodsDetailTab.setupWithViewPager(mGoodsDetailVp)
+    }
+
+    fun getRootView(): View {
+        return mRootView
     }
 }
