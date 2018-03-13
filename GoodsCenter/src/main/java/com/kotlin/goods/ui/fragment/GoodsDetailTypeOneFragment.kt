@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.eightbitlab.rxbus.Bus
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.YuanFenConverter
 import com.kotlin.base.widgets.BannerImageLoader
 import com.kotlin.goods.R
 import com.kotlin.goods.common.GoodsConstant
 import com.kotlin.goods.data.protocol.Goods
+import com.kotlin.goods.event.GoodsDetailImageEvent
 import com.kotlin.goods.injection.component.DaggerGoodsComponent
 import com.kotlin.goods.injection.module.GoodsModule
 import com.kotlin.goods.presenter.GoodsDetailPresenter
@@ -63,7 +65,7 @@ class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Good
         mGoodsDescTv.text = result.goodsDesc
         mGoodsPriceTv.text = YuanFenConverter.changeF2YWithUnit(result.goodsDefaultPrice)
         mSkuSelectedTv.text = result.goodsDefaultSku
-
+        Bus.send(GoodsDetailImageEvent(result.goodsDetailOne, result.goodsDetailTwo))
     }
 
 
