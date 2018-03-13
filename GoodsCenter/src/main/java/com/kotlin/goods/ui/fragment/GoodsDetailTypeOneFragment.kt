@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.eightbitlab.rxbus.Bus
 import com.kotlin.base.ext.onClick
-import com.kotlin.base.ui.activity.BaseActivity
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.YuanFenConverter
 import com.kotlin.base.widgets.BannerImageLoader
@@ -59,7 +58,7 @@ class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Good
         mGoodsDetailBanner.setDelayTime(2000)
         mGoodsDetailBanner.setIndicatorGravity(BannerConfig.RIGHT)
         mSkuView.onClick {
-            mSukPop.showAtLocation((activity as GoodsDetailActivity).getRootView(),
+            mSukPop.showAtLocation((activity as GoodsDetailActivity).contentView,
                     Gravity.BOTTOM and Gravity.CENTER_HORIZONTAL,
                     0, 0)
         }
@@ -91,6 +90,8 @@ class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Good
         mSukPop.setGoodsIcon(result.goodsDefaultIcon)
         mSukPop.setGoodsCode(result.goodsCode)
         mSukPop.setGoodsPrice(result.goodsDefaultPrice)
+
+        mSukPop.setSkuData(result.goodsSku)
 
     }
 
