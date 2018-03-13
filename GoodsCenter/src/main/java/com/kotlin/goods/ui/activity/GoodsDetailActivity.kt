@@ -2,7 +2,6 @@ package com.kotlin.goods.ui.activity
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseActivity
@@ -31,9 +30,5 @@ class GoodsDetailActivity : BaseActivity() {
             ARouter.getInstance().build(RouterPath.UserCenter.PATH_LOGIN)
                     .navigation()
         }
-    }
-
-    fun getRootView(): View {
-        return mRootView
     }
 }
