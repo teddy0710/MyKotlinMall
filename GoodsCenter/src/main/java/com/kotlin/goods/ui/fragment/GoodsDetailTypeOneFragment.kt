@@ -6,9 +6,12 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.kotlin.base.ext.onClick
+import com.kotlin.base.ui.activity.BaseActivity
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.YuanFenConverter
 import com.kotlin.base.widgets.BannerImageLoader
@@ -34,6 +37,12 @@ import kotlinx.android.synthetic.main.fragment_goods_detail_tab_one.*
 class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), GoodsDetailView {
 
     private lateinit var mSukPop: GoodsSkuPopView
+
+    //SKU弹层出场动画
+    private lateinit var mAnimationStart: Animation
+    //SKU弹层退场动画
+    private lateinit var mAnimationEnd: Animation
+
     override fun injectComponent() {
         DaggerGoodsComponent.builder()
                 .activityComponent(activityComponent)
@@ -50,6 +59,7 @@ class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Good
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initAnim()
         initSkuPop()
         loadData()
         initObserve()
@@ -65,12 +75,30 @@ class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Good
             mSukPop.showAtLocation((activity as GoodsDetailActivity).contentView,
                     Gravity.BOTTOM and Gravity.CENTER_HORIZONTAL,
                     0, 0)
+            (activity as BaseActivity).contentView.startAnimation(mAnimationStart)
         }
+    }
+
+    /*
+      初始化缩放动画
+   */
+    private fun initAnim() {
+        mAnimationStart = ScaleAnimation(
+                1f, 0.95f, 1f, 0.95f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+        mAnimationStart.duration = 500
+        mAnimationStart.fillAfter = true
+
+        mAnimationEnd = ScaleAnimation(
+                0.95f, 1f, 0.95f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+        mAnimationEnd.duration = 500
+        mAnimationEnd.fillAfter = true
     }
 
     private fun initSkuPop() {
         mSukPop = activity?.let { GoodsSkuPopView(it) }!!
-
+        mSukPop.setOnDismissListener {
+            (activity as BaseActivity).contentView.startAnimation(mAnimationEnd)
+        }
     }
 
     private fun loadData() {
