@@ -35,7 +35,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     //Android Support
-    //noinspection GradleCompatible
     compile "com.android.support:support-v4:${android_support_version}"
     compile "com.android.support:appcompat-v7:${android_support_version}"
     compile "com.android.support:recyclerview-v7:${android_support_version}"
@@ -73,7 +72,7 @@ dependencies {
     //Alert View
     compile "com.bigkoo:alertview:${alert_view_version}"
     //七牛
-    compile 'com.qiniu:qiniu-android-sdk:7.3.10'
+    compile 'com.qiniu:qiniu-android-sdk:7.3.11'
     //底部导航
     compile 'com.ashokvarma.android:bottom-navigation-bar:2.0.4'
     //Banner
