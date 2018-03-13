@@ -77,6 +77,7 @@ class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Good
                     0, 0)
             (activity as BaseActivity).contentView.startAnimation(mAnimationStart)
         }
+
     }
 
     /*
