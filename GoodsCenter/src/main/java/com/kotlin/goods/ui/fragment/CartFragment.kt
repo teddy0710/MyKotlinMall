@@ -1,5 +1,6 @@
 package com.kotlin.goods.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -186,6 +187,7 @@ class CartFragment : BaseMvpFragment<CartListPresenter>(), CartListView {
     /*
         更新总价
      */
+    @SuppressLint("SetTextI18n")
     private fun updateTotalPrice() {
         mTotalPrice = mAdapter.dataList
                 .filter { it.isSelected }

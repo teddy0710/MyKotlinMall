@@ -3,7 +3,6 @@ package com.kotlin.goods.ui.activity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.view.Gravity
-import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.kotlin.base.common.AppManager
@@ -16,7 +15,6 @@ import com.kotlin.goods.event.AddCartEvent
 import com.kotlin.goods.event.UpdateCartSizeEvent
 import com.kotlin.goods.ui.adapter.GoodsDetailVpAdapter
 import com.kotlin.provider.common.afterLogin
-import com.kotlin.provider.common.isLogined
 import kotlinx.android.synthetic.main.activity_goods_detail.*
 import org.jetbrains.anko.startActivity
 import q.rorbin.badgeview.QBadgeView

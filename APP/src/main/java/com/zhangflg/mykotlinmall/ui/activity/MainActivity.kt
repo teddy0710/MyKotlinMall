@@ -1,6 +1,5 @@
 package com.zhangflg.mykotlinmall.ui.activity
 
-import android.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
@@ -16,10 +15,7 @@ import com.zhangflg.mykotlinmall.R
 import com.zhangflg.mykotlinmall.ui.fragment.HomeFragment
 import com.zhangflg.mykotlinmall.ui.fragment.MineFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     private val mStack = Stack<BaseFragment>()
