@@ -8,7 +8,9 @@ import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseActivity
+import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.goods.R
+import com.kotlin.goods.common.GoodsConstant
 import com.kotlin.goods.event.AddCartEvent
 import com.kotlin.goods.event.UpdateCartSizeEvent
 import com.kotlin.goods.ui.adapter.GoodsDetailVpAdapter
@@ -27,7 +29,9 @@ class GoodsDetailActivity : BaseActivity() {
         setContentView(R.layout.activity_goods_detail)
         initView()
         initObserve()
+        loadCartSize()
     }
+
 
     private fun initView() {
         mGoodsDetailTab.tabMode = TabLayout.MODE_FIXED
@@ -52,12 +56,19 @@ class GoodsDetailActivity : BaseActivity() {
     }
 
     private fun setCartBadge() {
-        mCartBdage.badgeGravity = Gravity.END and Gravity.TOP
-
+        mCartBdage.badgeGravity = Gravity.END or Gravity.TOP
+        mCartBdage.setGravityOffset(22f, -2f, true)
+        mCartBdage.setBadgeTextSize(6f, true)
+        mCartBdage.bindTarget(mEnterCartTv).badgeNumber =
+                AppPrefsUtils.getInt(GoodsConstant.SP_CART_SIZE)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Bus.unregister(this)
+    }
+
+    private fun loadCartSize() {
+        setCartBadge()
     }
 }

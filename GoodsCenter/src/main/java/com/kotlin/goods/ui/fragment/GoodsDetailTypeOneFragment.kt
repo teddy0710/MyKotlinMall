@@ -175,7 +175,6 @@ class GoodsDetailTypeOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Good
         加入购物车 回调
      */
     override fun onAddCartResult(result: Int) {
-        toast("Cart$result")
         Bus.send(UpdateCartSizeEvent())
     }
 

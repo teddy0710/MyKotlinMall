@@ -4,7 +4,12 @@ import android.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.kotlin.base.ui.fragment.BaseFragment
+import com.kotlin.base.utils.AppPrefsUtils
+import com.kotlin.goods.common.GoodsConstant
+import com.kotlin.goods.event.UpdateCartSizeEvent
 import com.kotlin.goods.ui.fragment.CartFragment
 import com.kotlin.goods.ui.fragment.CategoryFragment
 import com.zhangflg.mykotlinmall.R
@@ -28,20 +33,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        mNavigationBar.checkMsgBadge(false)
-        mNavigationBar.checkCartBadge(20)
-
-//        initView()
         initFragment()
         initBottomNav()
         changeFragment(0)
-    }
+        initObserve()
+        loadCartSize()
 
-    private fun initView() {
-        val manager = supportFragmentManager.beginTransaction()
-        manager.replace(R.id.mContainer, HomeFragment())
-        manager.commit()
     }
 
     private fun initFragment() {
@@ -82,5 +79,24 @@ class MainActivity : AppCompatActivity() {
         }
         manager.show(mStack[position])
         manager.commit()
+    }
+
+    private fun initObserve() {
+        Bus.observe<UpdateCartSizeEvent>()
+                .subscribe {
+                    loadCartSize()
+                }.registerInBus(this)
+
+    }
+
+    private fun loadCartSize() {
+        //        mNavigationBar.checkMsgBadge(false)
+        mNavigationBar.checkCartBadge(AppPrefsUtils.getInt(GoodsConstant.SP_CART_SIZE))
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Bus.unregister(this)
     }
 }
