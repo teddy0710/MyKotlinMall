@@ -6,6 +6,7 @@ import android.view.Gravity
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
+import com.kotlin.base.common.AppManager
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseActivity
 import com.kotlin.base.utils.AppPrefsUtils
@@ -17,6 +18,7 @@ import com.kotlin.goods.ui.adapter.GoodsDetailVpAdapter
 import com.kotlin.provider.common.afterLogin
 import com.kotlin.provider.common.isLogined
 import kotlinx.android.synthetic.main.activity_goods_detail.*
+import org.jetbrains.anko.startActivity
 import q.rorbin.badgeview.QBadgeView
 
 /**
@@ -44,6 +46,13 @@ class GoodsDetailActivity : BaseActivity() {
             }
         }
         mCartBdage = QBadgeView(this)
+        mEnterCartTv.onClick {
+            startActivity<CartActivity>()
+        }
+
+        mLeftIv.onClick {
+            AppManager.instance.finishActivity(this)
+        }
     }
 
 
