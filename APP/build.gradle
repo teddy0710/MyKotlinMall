@@ -32,6 +32,7 @@ dependencies {
     implementation project(':Provider')
     implementation project(':MessageCenter')
     implementation project(':GoodsCenter')
+    implementation project(':OrderCenter')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     if (isUserModule.toBoolean()) {
         implementation project(':UserCenter')
