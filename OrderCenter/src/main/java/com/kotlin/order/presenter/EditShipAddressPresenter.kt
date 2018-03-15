@@ -24,7 +24,6 @@ class EditShipAddressPresenter @Inject constructor() : BasePresenter<EditShipAdd
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         shipAddressService.addShipAddress(shipUserName,shipUserMobile,shipAddress).execute(object : BaseSubscriber<Boolean>(mView) {
             override fun onNext(t: Boolean) {
                     mView.onAddShipAddressResult(t)
@@ -40,7 +39,6 @@ class EditShipAddressPresenter @Inject constructor() : BasePresenter<EditShipAdd
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         shipAddressService.editShipAddress(address).execute(object : BaseSubscriber<Boolean>(mView) {
             override fun onNext(t: Boolean) {
                 mView.onEditShipAddressResult(t)

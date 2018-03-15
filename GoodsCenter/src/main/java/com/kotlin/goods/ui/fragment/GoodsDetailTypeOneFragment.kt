@@ -31,7 +31,6 @@ import com.kotlin.goods.widget.GoodsSkuPopView
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_goods_detail_tab_one.*
-import org.jetbrains.anko.support.v4.toast
 
 /**
  * 商品详情Tab一

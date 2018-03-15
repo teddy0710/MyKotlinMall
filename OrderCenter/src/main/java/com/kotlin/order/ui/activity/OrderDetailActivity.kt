@@ -28,7 +28,6 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(), OrderDetail
     override fun injectComponent() {
         DaggerOrderComponent.builder().activityComponent(activityComponent).orderModule(OrderModule()).build().inject(this)
         mPresenter.mView = this
-        TODO() //route
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -23,7 +23,6 @@ class OrderListPresenter @Inject constructor() : BasePresenter<OrderListView>() 
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         orderService.getOrderList(orderStatus).execute(object : BaseSubscriber<MutableList<Order>?>(mView) {
             override fun onNext(t: MutableList<Order>?) {
                     mView.onGetOrderListResult(t)
@@ -39,7 +38,6 @@ class OrderListPresenter @Inject constructor() : BasePresenter<OrderListView>() 
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         orderService.confirmOrder(orderId).execute(object : BaseSubscriber<Boolean>(mView) {
             override fun onNext(t: Boolean) {
                 mView.onConfirmOrderResult(t)
@@ -55,7 +53,6 @@ class OrderListPresenter @Inject constructor() : BasePresenter<OrderListView>() 
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         orderService.cancelOrder(orderId).execute(object : BaseSubscriber<Boolean>(mView) {
             override fun onNext(t: Boolean) {
                 mView.onCancelOrderResult(t)

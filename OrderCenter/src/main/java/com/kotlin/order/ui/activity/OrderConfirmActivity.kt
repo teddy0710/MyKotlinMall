@@ -1,10 +1,10 @@
 package com.kotlin.order.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.kotlin.base.ext.onClick
@@ -48,7 +48,6 @@ class OrderConfirmActivity:BaseMvpActivity<OrderConfirmPresenter>(),OrderConfirm
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_confirm)
-
         initView()
         initObserve()
         loadData()
@@ -105,6 +104,7 @@ class OrderConfirmActivity:BaseMvpActivity<OrderConfirmPresenter>(),OrderConfirm
     /*
         获取订单回调
      */
+    @SuppressLint("SetTextI18n")
     override fun onGetOrderByIdResult(result: Order) {
         mCurrentOrder = result
         mAdapter.setData(result.orderGoodsList)
@@ -124,6 +124,7 @@ class OrderConfirmActivity:BaseMvpActivity<OrderConfirmPresenter>(),OrderConfirm
     /*
         根据是否有收货人信息，更新视图
      */
+    @SuppressLint("SetTextI18n")
     private fun updateAddressView() {
         mCurrentOrder?.let {
             if (it.shipAddress == null){

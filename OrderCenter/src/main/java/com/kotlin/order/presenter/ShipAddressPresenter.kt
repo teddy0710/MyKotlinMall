@@ -23,7 +23,6 @@ class ShipAddressPresenter @Inject constructor() : BasePresenter<ShipAddressView
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         shipAddressService.getShipAddressList().execute(object : BaseSubscriber<MutableList<ShipAddress>?>(mView) {
             override fun onNext(t: MutableList<ShipAddress>?) {
                 mView.onGetShipAddressResult(t)
@@ -39,7 +38,6 @@ class ShipAddressPresenter @Inject constructor() : BasePresenter<ShipAddressView
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         shipAddressService.editShipAddress(address).execute(object : BaseSubscriber<Boolean>(mView) {
             override fun onNext(t: Boolean) {
                 mView.onSetDefaultResult(t)
@@ -55,7 +53,6 @@ class ShipAddressPresenter @Inject constructor() : BasePresenter<ShipAddressView
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
         shipAddressService.deleteShipAddress(id).execute(object : BaseSubscriber<Boolean>(mView) {
             override fun onNext(t: Boolean) {
                 mView.onDeleteResult(t)

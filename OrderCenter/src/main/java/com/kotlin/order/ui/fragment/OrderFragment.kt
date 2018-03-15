@@ -21,7 +21,6 @@ import com.kotlin.order.presenter.view.OrderListView
 import com.kotlin.order.ui.activity.OrderDetailActivity
 import com.kotlin.order.ui.adapter.OrderAdapter
 import com.kotlin.provider.common.ProviderConstant
-import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_order.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
@@ -42,22 +41,15 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-        return inflater?.inflate(R.layout.fragment_order, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
+        return inflater.inflate(R.layout.fragment_order, container, false)
     }
 
-//    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        inflater?.let { super.onCreateView(it, container, savedInstanceState) }
-//
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view?.let { super.onViewCreated(it, savedInstanceState) }
+        view.let { super.onViewCreated(it, savedInstanceState) }
         initView()
     }
-//    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-//
-//    }
 
     override fun onStart() {
         super.onStart()
@@ -125,7 +117,7 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
         加载数据
      */
     private fun loadData() {
-        mMultiStateView.startLoading()
+        mMultiStateView?.startLoading()
         arguments?.getInt(OrderConstant.KEY_ORDER_STATUS, -1)?.let { mPresenter.getOrderList(it) }
     }
 
